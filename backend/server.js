@@ -15,7 +15,7 @@ app.use("/login", require("./routes/login"));
 
 
 mongoose
-    .connect("mongodb://localhost:27690/order", { useNewUrlParser: true, useUnifiedTopology: true })
+    .connect("mongodb://localhost:27017/order", { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => { console.log("Mongodb connected") })
     .catch(err => console.log(err));
 

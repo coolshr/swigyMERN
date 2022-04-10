@@ -29,6 +29,10 @@ import Food from '../pages/Menu';
 import FoodMenu from '../pages/Menu';
 import VendorMenu from '../pages/vendorMenu';
 import AddFood from '../pages/AddFood';
+import BuyerOrders from '../pages/buyerOrders';
+import VendorOrders from '../pages/vendorOrders';
+import VendorStats from '../pages/vendorStats';
+
 function Layout(tag) {
   return (
     <>
@@ -80,6 +84,9 @@ function App() {
               <Route path="/Menu" exact element={<FoodMenu />} />
               <Route path="/vendorMenu" exact element={<VendorMenu />} />
               <Route path="/addFood" exact element={<AddFood />} />
+              <Route path="/buyerOrders" exact element={<BuyerOrders />} />
+              <Route path="/vendorOrders" exact element={<VendorOrders />} />
+              <Route path="/vendorStats" exact element={<VendorStats   />} />
               {/* <Route path="/Rand" exact element={<Rand />} /> */}
             </Routes>
           </BrowserRouter>

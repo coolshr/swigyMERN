@@ -3,6 +3,8 @@ const router = express.Router();
 const jwt = require("jsonwebtoken");
 const helper = require("../helper/helper");
 const Vendor = require("../models/vendor");
+const food = require("../models/food");
+const order = require("../models/order");
 
 router.get('/all', function (req, res) {
     Vendor.find(function (err, vendor) {
@@ -49,11 +51,11 @@ router.get('/', async function (req, res) {
         const decoded = jwt.verify(token, 'secret123')
         const id = decoded.id
         const vendor = await Vendor.findOne({ _id: id })
-        res.json(vendor)
+        return res.json(vendor)
     }
     catch (err) {
         console.log(err)
-        res.json({ status: "error", error: "INVALID_TOKEN" })
+        return res.json({ status: "error", error: "INVALID_TOKEN" })
     }
 
 });
@@ -98,6 +100,21 @@ router.post('/update', async function (req, res) {
     catch (err) {
         // console.log(err)
         res.send({ status: "error", error: "AUTHENTICATION_FAILED" })
+    }
+})
+
+router.post('/stats', async function (req, res) {
+    const vendorId = req.body.vendorId
+    let res1 = await helper(Vendor, vendorId);
+    if(!res1)
+        return res.json({ status: "error", error: "NOT_AUTHORISED" })
+    else{
+        let vendorMenu = await  food.find({vendor:vendorId})
+        // console.log(vendorMenu)
+        vendorMenu.sort(function(a, b){return b.orders-a.orders});
+        let topMenu = vendorMenu.slice(0,4)
+        console.log(topMenu)
+        return res.json({status:"success", topMenu:topMenu})
     }
 })
 

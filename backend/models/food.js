@@ -53,7 +53,11 @@ const orderSchema = new Schema({
         required: true
     },
     addons: [addOn],
-    tags: [tags]
+    tags: [tags],
+    orders:{
+        type: Number,
+        default: 0
+    }
 });
 
 module.exports = Food = mongoose.model('food', orderSchema);

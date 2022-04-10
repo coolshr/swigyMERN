@@ -34,7 +34,29 @@ const orderSchema = new Schema({
         type: Number,
         required: true
     },
-    addOn: [addon]
+    addOn: [addon],
+    rating: {
+        type: Number,
+        default: 0
+    },
+    rated: {
+        type: Boolean,
+        default: false
+    },
+    placedAt:{
+        type: Date,
+        default: Date.now
+    },
+    batch:{
+        type: String,
+        required: true,
+        enum: ['UG1', 'UG2', 'UG3', 'UG4', 'UG5'],
+        required: true
+    },
+    age:{
+        type: Number,
+        required: true
+    }
 });
 
 module.exports = Order = mongoose.model('order', orderSchema);

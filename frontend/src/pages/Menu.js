@@ -289,9 +289,10 @@ export default function FoodMenu() {
         Hours: new Date(v.closingTime).getHours(),
         Min: new Date(v.closingTime).getMinutes()
       }
-
-
       var t = new Date()
+      console.log(t)
+      console.log(v.open)
+      console.log(v.close)
       var time = {
         Hours: t.getHours(),
         Min: t.getMinutes()
@@ -445,14 +446,20 @@ export default function FoodMenu() {
   }
   async function placeOrder(e) {
     var token = localStorage.getItem('token');
-    var user = jwt.decode(token);
+    var usr = jwt.decode(token);
 
     var toSend = {
       food: popupId._id,
       quantity: quantity,
       vendor: popupId.vendor,
-      user: user.id,
-      addOn: []
+      user: usr.id,
+      addOn: [],
+      price: priceToShow
+    }
+    if(user.wallet < priceToShow*quantity)
+    {
+      alert("Insufficient Balance")
+      return
     }
     if (addon.length > 0)
       addon.map(a => { toSend.addOn.push({ addon: a }) })

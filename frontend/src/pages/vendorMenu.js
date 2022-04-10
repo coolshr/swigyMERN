@@ -310,7 +310,6 @@ export default function FoodMenu() {
       localStorage.clear()
       navigate('/login')
     }
-
   }, [])
 
 
